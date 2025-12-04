@@ -41,12 +41,10 @@ public class Mod2Optimization {
 
         // ======================== Contraintes MOD1 ========================
 
-        // 1️⃣ Chaque employé ne peut travailler qu'une seule fois par ligne
         for (int e = 0; e < EMP; e++) {
             model.allDifferent(X[e]).post();
         }
 
-        // 2️⃣ Contraintes FL : lignes fortement liées
         for (int e = 0; e < EMP; e++) {
             for (int s = 0; s < SHIFTS - 1; s++) {
                 for (int[] fl : FL) {
@@ -59,7 +57,6 @@ public class Mod2Optimization {
             }
         }
 
-        // 3️⃣ Chaque employé doit travailler sur les lignes FA
         for (int e = 0; e < EMP; e++) {
             IntVar[] counts = new IntVar[FA.length];
             for (int k = 0; k < FA.length; k++) {
@@ -69,9 +66,8 @@ public class Mod2Optimization {
             model.sum(counts, ">=", 1).post();
         }
 
-        // ======================== Capacités par ligne et surcharge ========================
 
-        IntVar[] overload = new IntVar[LINES]; // surcharge par ligne
+        IntVar[] overload = new IntVar[LINES]; 
         for (int l = 1; l <= LINES; l++) {
             IntVar[] shiftCounts = new IntVar[SHIFTS];
 
@@ -99,7 +95,7 @@ public class Mod2Optimization {
         IntVar totalOverload = model.intVar("totalOverload", 0, EMP * SHIFTS);
         model.sum(overload, "=", totalOverload).post();
 
-        // ======================== Objectif : minimiser surcharge ========================
+    
         model.setObjective(Model.MINIMIZE, totalOverload);
 
         // ======================== Solveur ========================
