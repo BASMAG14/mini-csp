@@ -104,7 +104,7 @@ public class Mod1Feasibility {
             for (int line = 1; line <= LINES; line++) {
                 Integer cap = capacities.get(line);
                 if (cap == null) {
-                    // sécurité : si cap manquante, on met une grande capacité pour ne pas bloquer
+                    
                     cap = EMP;
                 }
                 // on crée une variable de comptage nommée
@@ -120,7 +120,7 @@ public class Mod1Feasibility {
         // time limit 10 minutes (600s)
         solver.limitTime("600s");
 
-        // Affiche uniquement les statistiques (pas toutes les solutions)
+      
         solver.showStatistics();
 
 
@@ -139,7 +139,6 @@ public class Mod1Feasibility {
                 System.out.println();
             }
 
-            // ====== Affichage formaté : TABLEAU DES AFFECTATIONS ======
             System.out.println("\n===== TABLEAU DES AFFECTATIONS =====");
             System.out.println("Employé | S0 | S1 | S2 | S3 | S4 | S5");
             System.out.println("--------------------------------------------");
